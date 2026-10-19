@@ -1,0 +1,94 @@
+<misterromdescription>
+    <rotation>horizontal</rotation>
+    <name>Pitapat Puzzle (set 2)</name>
+    <setname>pitapata</setname>
+    <parent>pitapat</parent>
+    <mameversion>0289</mameversion>
+    <year>1997</year>
+    <manufacturer>F2 System</manufacturer>
+    <players>2</players>
+    <joystick>4</joystick>
+    <rbf>crospang</rbf>
+    <platform>F2 System</platform>
+
+    <!--
+      Image for the Crospang core (rtl/cp_mem.sv, tools/crospang_image.py):
+
+        0x000000  68000 program (1 MB, each word low byte first)
+        0x100000  tile ROM: first half at 0x100000, second half at 0x200000
+        0x300000  sprite ROM: first half at 0x300000, second half at 0x400000
+        0x500000  OKI M6295 samples (256 KB)
+        0x540000  Z80 program (64 KB)
+        0x550000  configuration (8 bytes)
+
+      Made by tools/make_mra.py from MAME 0.289 (src/mame/f32/crospang.cpp); expects the MAME 0.289 merged romset or
+      the split sets: parts are found by name and CRC.
+
+      DIP switches (ioctl index 254): byte 0 is SW1 (bits 7:0 of MAME's DSW port), byte 1 is SW2 (bits 15:8); a 1 is "off".
+      MAME's default is FFFF.
+    -->
+    <switches default="FF,FF" base="16">
+        <dip bits="0,1" name="Coinage" ids="1C/2C,3C/1C,2C/1C,1C/1C"/>
+        <dip bits="2" name="Boxes to Marvels" ids="2,1"/>
+        <dip bits="3" name="Unknown" ids="On,Off"/>
+        <dip bits="4" name="Unknown" ids="On,Off"/>
+        <dip bits="5" name="Unknown" ids="On,Off"/>
+        <dip bits="6" name="Unknown" ids="On,Off"/>
+        <dip bits="7" name="Service Mode" ids="On,Off"/>
+        <dip bits="8" name="Unknown" ids="On,Off"/>
+        <dip bits="9" name="Unknown" ids="On,Off"/>
+        <dip bits="10" name="Unknown" ids="On,Off"/>
+        <dip bits="11" name="Unknown" ids="On,Off"/>
+        <dip bits="12" name="Unknown" ids="On,Off"/>
+        <dip bits="13" name="Unknown" ids="On,Off"/>
+        <dip bits="14" name="Unknown" ids="On,Off"/>
+        <dip bits="15" name="Unknown" ids="On,Off"/>
+    </switches>
+
+    <rom index="0" zip="pitapata.zip|pitapat.zip" md5="a2d09ffbf4ced80cbd8c05c17d7ee188" address="0x32000000">
+        <!-- maincpu: the 68000 program, each word low byte first -->
+        <interleave output="16">
+            <part name="ua03" crc="936bd573" offset="0x0" length="0x40000" map="10"/>
+            <part name="ua02" crc="742652cb" offset="0x0" length="0x40000" map="01"/>
+        </interleave>
+        <part repeat="0x2000">00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00</part>
+        <!-- tiles: first half at 0x100000, second half at 0x200000 -->
+        <interleave output="16">
+            <part name="uc07" crc="fa2ff22b" offset="0x0" length="0x20000" map="01"/>
+            <part name="uc08" crc="3108a9f2" offset="0x0" length="0x20000" map="10"/>
+        </interleave>
+        <interleave output="16">
+            <part name="uc07" crc="fa2ff22b" offset="0x40000" length="0x20000" map="01"/>
+            <part name="uc08" crc="3108a9f2" offset="0x40000" length="0x20000" map="10"/>
+        </interleave>
+        <part repeat="0x2000">00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00</part>
+        <interleave output="16">
+            <part name="uc07" crc="fa2ff22b" offset="0x20000" length="0x20000" map="01"/>
+            <part name="uc08" crc="3108a9f2" offset="0x20000" length="0x20000" map="10"/>
+        </interleave>
+        <interleave output="16">
+            <part name="uc07" crc="fa2ff22b" offset="0x60000" length="0x20000" map="01"/>
+            <part name="uc08" crc="3108a9f2" offset="0x60000" length="0x20000" map="10"/>
+        </interleave>
+        <part repeat="0x2000">00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00</part>
+        <!-- sprites: first half at 0x300000, second half at 0x400000 -->
+        <interleave output="16">
+            <part name="ud14" crc="92e23e92" offset="0x0" length="0x40000" map="01"/>
+            <part name="ud15" crc="7d3d6dba" offset="0x0" length="0x40000" map="10"/>
+        </interleave>
+        <part repeat="0x2000">00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00</part>
+        <interleave output="16">
+            <part name="ud16" crc="5c09dff8" offset="0x0" length="0x40000" map="01"/>
+            <part name="ud17" crc="d4c67e2e" offset="0x0" length="0x40000" map="10"/>
+        </interleave>
+        <part repeat="0x2000">00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00</part>
+        <!-- oki: the M6295 samples -->
+        <part name="us08" crc="8d8fe72a" offset="0x0" length="0x40000"/>
+        <!-- audiocpu: the Z80 program (64 KB) -->
+        <part name="us02" crc="c7cc05fa" offset="0x0" length="0x10000"/>
+        <!-- configuration: scroll map, work RAM base, 68000 at 14.318 MHz, 16384 tiles, 16384 sprites, button 3 -->
+        <part>01 01 01 01 00 01 00 00</part>
+    </rom>
+
+    <buttons names="Pick/Swap/Drop,More Marvels,Boxes to Marvels,Start,Coin" default="A,B,X,Start,Select"/>
+</misterromdescription>

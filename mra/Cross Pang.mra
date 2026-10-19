@@ -1,0 +1,80 @@
+<misterromdescription>
+    <rotation>horizontal</rotation>
+    <name>Cross Pang</name>
+    <setname>crospang</setname>
+    <mameversion>0289</mameversion>
+    <year>1998</year>
+    <manufacturer>F2 System</manufacturer>
+    <players>2</players>
+    <joystick>4</joystick>
+    <rbf>crospang</rbf>
+    <platform>F2 System</platform>
+
+    <!--
+      Image for the Crospang core (rtl/cp_mem.sv, tools/crospang_image.py):
+
+        0x000000  68000 program (1 MB, each word low byte first)
+        0x100000  tile ROM: first half at 0x100000, second half at 0x200000
+        0x300000  sprite ROM: first half at 0x300000, second half at 0x400000
+        0x500000  OKI M6295 samples (256 KB)
+        0x540000  Z80 program (64 KB)
+        0x550000  configuration (8 bytes)
+
+      Made by tools/make_mra.py from MAME 0.289 (src/mame/f32/crospang.cpp); expects the MAME 0.289 merged romset or
+      the split sets: parts are found by name and CRC.
+
+      DIP switches (ioctl index 254): byte 0 is SW1 (bits 7:0 of MAME's DSW port), byte 1 is SW2 (bits 15:8); a 1 is "off".
+      MAME's default is FF7E.
+    -->
+    <switches default="7E,FF" base="16">
+        <dip bits="0,1" name="Coinage" ids="3C/1C,2C/1C,1C/1C,1C/2C"/>
+        <dip bits="2,3" name="Difficulty" ids="Hard,Hardest,Easy,Medium"/>
+        <dip bits="4" name="Bonus Power (Points)" ids="8k 23k 15k+,5k 20k 15k+"/>
+        <dip bits="5" name="Number of Powers" ids="1,2"/>
+        <dip bits="6,7" name="Extra Balls per Move" ids="4,3,2,1"/>
+        <dip bits="8,9" name="Unknown" ids="9/10,8/9,7/8,6/7"/>
+        <dip bits="10" name="Bonus Power (Bomb)" ids="4 Chain Reactions,3 Chain Reactions"/>
+        <dip bits="11,12" name="Minimum Balls per Row" ids="6,5,4,3"/>
+        <dip bits="13" name="Unused (SW2:6)" ids="On,Off"/>
+        <dip bits="14" name="Service Mode" ids="On,Off"/>
+        <dip bits="15" name="Unused (SW2:8)" ids="On,Off"/>
+    </switches>
+
+    <rom index="0" zip="crospang.zip" md5="8760b3c2810a2e64a44a4ce1feee8454" address="0x32000000">
+        <!-- maincpu: the 68000 program, each word low byte first -->
+        <interleave output="16">
+            <part name="p2.bin" crc="0947d204" offset="0x0" length="0x20000" map="10"/>
+            <part name="p1.bin" crc="0bcbbaad" offset="0x0" length="0x20000" map="01"/>
+        </interleave>
+        <part repeat="0x3000">00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00</part>
+        <!-- tiles: first half at 0x100000, second half at 0x200000 -->
+        <interleave output="16">
+            <part name="rom1.bin" crc="905042bb" offset="0x0" length="0x20000" map="01"/>
+            <part name="rom2.bin" crc="bc4381e9" offset="0x0" length="0x20000" map="10"/>
+        </interleave>
+        <part repeat="0x3000">00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00</part>
+        <interleave output="16">
+            <part name="rom1.bin" crc="905042bb" offset="0x20000" length="0x20000" map="01"/>
+            <part name="rom2.bin" crc="bc4381e9" offset="0x20000" length="0x20000" map="10"/>
+        </interleave>
+        <part repeat="0x3000">00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00</part>
+        <!-- sprites: first half at 0x300000, second half at 0x400000 -->
+        <interleave output="16">
+            <part name="rom3.bin" crc="cc6e1fce" offset="0x0" length="0x80000" map="01"/>
+            <part name="rom4.bin" crc="9a91d494" offset="0x0" length="0x80000" map="10"/>
+        </interleave>
+        <interleave output="16">
+            <part name="rom5.bin" crc="53a34dc5" offset="0x0" length="0x80000" map="01"/>
+            <part name="rom6.bin" crc="9c633082" offset="0x0" length="0x80000" map="10"/>
+        </interleave>
+        <!-- oki: the M6295 samples -->
+        <part name="s2.bin" crc="9f9ecd22" offset="0x0" length="0x20000"/>
+        <part repeat="0x800">00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00</part>
+        <!-- audiocpu: the Z80 program (64 KB) -->
+        <part name="s1.bin" crc="d61a224c" offset="0x0" length="0x10000"/>
+        <!-- configuration: scroll map, work RAM base, 68000 at 14.318 MHz, 16384 tiles, 16384 sprites, button 3 -->
+        <part>00 00 00 00 01 01 00 00</part>
+    </rom>
+
+    <buttons names="Pick/Drop,Power,More Balls,Start,Coin" default="A,B,X,Start,Select"/>
+</misterromdescription>

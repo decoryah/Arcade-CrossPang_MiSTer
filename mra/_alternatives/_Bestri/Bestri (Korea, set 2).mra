@@ -1,0 +1,100 @@
+<misterromdescription>
+    <rotation>horizontal</rotation>
+    <name>Bestri (Korea, set 2)</name>
+    <setname>bestria</setname>
+    <parent>bestri</parent>
+    <mameversion>0289</mameversion>
+    <year>1998</year>
+    <manufacturer>F2 System</manufacturer>
+    <players>2</players>
+    <joystick>4</joystick>
+    <rbf>crospang</rbf>
+    <platform>F2 System</platform>
+
+    <!--
+      Image for the Crospang core (rtl/cp_mem.sv, tools/crospang_image.py):
+
+        0x000000  68000 program (1 MB, each word low byte first)
+        0x100000  tile ROM: first half at 0x100000, second half at 0x200000
+        0x300000  sprite ROM: first half at 0x300000, second half at 0x400000
+        0x500000  OKI M6295 samples (256 KB)
+        0x540000  Z80 program (64 KB)
+        0x550000  configuration (8 bytes)
+
+      Made by tools/make_mra.py from MAME 0.289 (src/mame/f32/crospang.cpp); expects the MAME 0.289 merged romset or
+      the split sets: parts are found by name and CRC.
+
+      DIP switches (ioctl index 254): byte 0 is SW1 (bits 7:0 of MAME's DSW port), byte 1 is SW2 (bits 15:8); a 1 is "off".
+      MAME's default is FFFB.
+    -->
+    <switches default="FB,FF" base="16">
+        <dip bits="0" name="Service Mode" ids="On,Off"/>
+        <dip bits="1,2" name="Coinage" ids="3C/1C,1C/1C,2C/1C,1C/2C"/>
+        <dip bits="3,4" name="Difficulty" ids="Hardest,Medium,Hard,Easy"/>
+        <dip bits="5" name="Help Penalty (Heuk Sun)" ids="Variable,Constant"/>
+        <dip bits="6,7" name="Girls" ids="No (duplicate 2),No (duplicate 1),Yes,No"/>
+        <dip bits="8,9,10" name="Unknown" ids="7,3,5,1,6,2,4,0"/>
+        <dip bits="11,12" name="Unknown (Die Break)" ids="3,1,2,0"/>
+        <dip bits="13" name="Time (Penta)" ids="60,90"/>
+        <dip bits="14" name="Unused (SW2:7)" ids="On,Off"/>
+        <dip bits="15" name="Unused (SW2:8)" ids="On,Off"/>
+    </switches>
+
+    <rom index="0" zip="bestria.zip|bestri.zip" md5="c59505e3f2126b92c477bad45a305261" address="0x32000000">
+        <!-- maincpu: the 68000 program, each word low byte first -->
+        <interleave output="16">
+            <part name="e_ua03.i5" crc="7c53d9f8" offset="0x0" length="0x80000" map="10"/>
+            <part name="o_ua02.i3" crc="035c86f6" offset="0x0" length="0x80000" map="01"/>
+        </interleave>
+        <!-- tiles: first half at 0x100000, second half at 0x200000 -->
+        <interleave output="16">
+            <part name="0_uc07.p12" crc="7aad194c" offset="0x0" length="0x20000" map="01"/>
+            <part name="2_uc08.m12" crc="23778472" offset="0x0" length="0x20000" map="10"/>
+        </interleave>
+        <interleave output="16">
+            <part name="0_uc07.p12" crc="7aad194c" offset="0x40000" length="0x20000" map="01"/>
+            <part name="2_uc08.m12" crc="23778472" offset="0x40000" length="0x20000" map="10"/>
+        </interleave>
+        <interleave output="16">
+            <part name="1_uc28.n12" crc="4f737007" offset="0x0" length="0x20000" map="01"/>
+            <part name="3_uc29.k12" crc="2f5b244f" offset="0x0" length="0x20000" map="10"/>
+        </interleave>
+        <interleave output="16">
+            <part name="1_uc28.n12" crc="4f737007" offset="0x40000" length="0x20000" map="01"/>
+            <part name="3_uc29.k12" crc="2f5b244f" offset="0x40000" length="0x20000" map="10"/>
+        </interleave>
+        <interleave output="16">
+            <part name="0_uc07.p12" crc="7aad194c" offset="0x20000" length="0x20000" map="01"/>
+            <part name="2_uc08.m12" crc="23778472" offset="0x20000" length="0x20000" map="10"/>
+        </interleave>
+        <interleave output="16">
+            <part name="0_uc07.p12" crc="7aad194c" offset="0x60000" length="0x20000" map="01"/>
+            <part name="2_uc08.m12" crc="23778472" offset="0x60000" length="0x20000" map="10"/>
+        </interleave>
+        <interleave output="16">
+            <part name="1_uc28.n12" crc="4f737007" offset="0x20000" length="0x20000" map="01"/>
+            <part name="3_uc29.k12" crc="2f5b244f" offset="0x20000" length="0x20000" map="10"/>
+        </interleave>
+        <interleave output="16">
+            <part name="1_uc28.n12" crc="4f737007" offset="0x60000" length="0x20000" map="01"/>
+            <part name="3_uc29.k12" crc="2f5b244f" offset="0x60000" length="0x20000" map="10"/>
+        </interleave>
+        <!-- sprites: first half at 0x300000, second half at 0x400000 -->
+        <interleave output="16">
+            <part name="a_ud14.j12" crc="3502f71b" offset="0x0" length="0x80000" map="01"/>
+            <part name="b_ud15.h12" crc="2636b837" offset="0x0" length="0x80000" map="10"/>
+        </interleave>
+        <interleave output="16">
+            <part name="c_ud16.g12" crc="68b0ff81" offset="0x0" length="0x80000" map="01"/>
+            <part name="d_ud17.e12" crc="60082aed" offset="0x0" length="0x80000" map="10"/>
+        </interleave>
+        <!-- oki: the M6295 samples -->
+        <part name="us08.q7" crc="85d8f3de" offset="0x0" length="0x40000"/>
+        <!-- audiocpu: the Z80 program (64 KB) -->
+        <part name="us02.p3" crc="c7cc05fa" offset="0x0" length="0x10000"/>
+        <!-- configuration: scroll map, work RAM base, 68000 at 14.318 MHz, 16384 tiles, 16384 sprites, button 3 -->
+        <part>03 03 00 01 01 00 00 00</part>
+    </rom>
+
+    <buttons names="Launch/Place,Jump/Menu,-,Start,Coin" default="A,B,Start,Select"/>
+</misterromdescription>
